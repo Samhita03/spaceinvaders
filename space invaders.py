@@ -1,5 +1,6 @@
 import pygame
 WIDTH=1000
+pygame.init()
 HEIGHT=800
 TITLE="space invaders"
 screen=pygame.display.set_mode((WIDTH,HEIGHT))
@@ -48,7 +49,15 @@ def drawbullets():
 run=True
 while run==True:
     screen.blit(background,(0,0))
+    font=pygame.font.SysFont("times new roman",20)
+    text=font.render("health="+str(yship_health),True,"black")
+    screen.blit(text,(20,20))
     sprite.draw(screen)
+
+    font=pygame.font.SysFont("times new roman",20)
+    text=font.render("health="+str(rship_health),True,"black")
+    screen.blit(text,(800,20))
+    
     drawbullets()
     pygame.draw.line(screen,"white",(500,0),(500,800),5)
     for event in pygame.event.get():
@@ -96,6 +105,20 @@ while run==True:
         rship.rect.top=0
     if rship.rect.bottom>800:
         rship.rect.bottom=800
+    if yship_health<=0:
+        font=pygame.font.SysFont("times new roman",70)
+        text=font.render("Red ship has won",True,"black")
+        screen.blit(text,(300,400))
+        pygame.display.update()
+        pygame.time.delay(3000)
+        run=False
+    if rship_health<=0:
+        font=pygame.font.SysFont("times new roman",70)
+        text=font.render("Yellow ship has won",True,"black")
+        screen.blit(text,(300,400))
+        pygame.display.update()
+        pygame.time.delay(3000)
+        run=False
     pygame.display.update()
 
     
